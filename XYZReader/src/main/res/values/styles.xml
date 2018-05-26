@@ -24,6 +24,16 @@
 
     </style>
 
+    <style name="ArticleTitle">
+        <item name="android:textSize">@dimen/article_title_text_size</item>
+        <item name="android:textColor">@color/article_card_view_text</item>
+    </style>
+
+    <style name="ArticleSubtitle">
+        <item name="android:textSize">@dimen/article_subtitle_text_size</item>
+        <item name="android:textColor">@color/article_card_view_sub</item>
+    </style>
+
     <style name="AppTheme.Detail">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
