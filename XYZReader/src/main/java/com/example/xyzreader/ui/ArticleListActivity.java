@@ -178,20 +178,18 @@ public class ArticleListActivity extends AppCompatActivity implements
             cursor.moveToPosition(position);
             holder.titleView.setText(cursor.getString(ArticleLoader.Query.TITLE));
             Date publishedDate = parsePublishedDate();
+            String author = cursor.getString(ArticleLoader.Query.AUTHOR);
+            holder.authorTextView.setText(String.format(getString(R.string.by_author), author));
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
 
-                holder.subtitleView.setText(Html.fromHtml(
+                holder.dateTextView.setText(
                         DateUtils.getRelativeTimeSpanString(
                                 publishedDate.getTime(),
                                 System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                                DateUtils.FORMAT_ABBREV_ALL).toString()
-                                + "<br/>" + " by "
-                                + cursor.getString(ArticleLoader.Query.AUTHOR)));
+                                DateUtils.FORMAT_ABBREV_ALL).toString());
             } else {
-                holder.subtitleView.setText(Html.fromHtml(
-                        outputFormat.format(publishedDate)
-                                + "<br/>" + " by "
-                                + cursor.getString(ArticleLoader.Query.AUTHOR)));
+                holder.dateTextView.setText(
+                        outputFormat.format(publishedDate));
             }
             String url = cursor.getString(ArticleLoader.Query.THUMB_URL);
             //aspect ratio as single number, as from query
@@ -216,14 +214,16 @@ public class ArticleListActivity extends AppCompatActivity implements
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView thumbnailView;
         public TextView titleView;
-        public TextView subtitleView;
+        public TextView dateTextView;
+        public TextView authorTextView;
         public ConstraintLayout constraintLayout;
 
         public ViewHolder(View view) {
             super(view);
             thumbnailView = view.findViewById(R.id.thumbnail);
             titleView = view.findViewById(R.id.article_title);
-            subtitleView = view.findViewById(R.id.article_subtitle);
+            dateTextView = view.findViewById(R.id.article_date);
+            authorTextView = view.findViewById(R.id.article_author);
             constraintLayout = view.findViewById(R.id.list_item_constraint_layout);
         }
     }
