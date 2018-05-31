@@ -24,4 +24,7 @@
     <color name="article_card_view_sub">#424242</color>
     <color name="ltgray">#ffe0e0e0</color>
     <color name="list_item_placeholder_color">#8aa8c6</color>
+    <color name="title_detail_default_background">#455A64</color>
+    <color name="title_detail_text_color">#FFFFFF</color>
+    <color name="detail_date_color">#ECEFF1</color>
 </resources>
