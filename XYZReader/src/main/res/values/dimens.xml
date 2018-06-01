@@ -3,6 +3,7 @@
     <dimen name="detail_title_text_size">32sp</dimen>
     <dimen name="detail_body_text_size">22sp</dimen>
     <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+    <dimen name="article_body_item_padding">16dp</dimen>
 
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="fab_press_translation_z">6dp</dimen>
@@ -11,5 +12,7 @@
     <!--Article Item CardView dimens -->
     <dimen name="article_title_text_size">16sp</dimen>
     <dimen name="article_subtitle_text_size">14sp</dimen>
+
+
 
 </resources>

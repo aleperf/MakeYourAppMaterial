@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     String date;
     String[] articleBody;
 
-    public ArticleAdapter(Context context, String title, String author, String date, String[] articleBody) {
+    public ArticleAdapter(Context context) {
         this.context = context;
-        this.title = title;
-        this.author = author;
-        this.date = date;
-        this.articleBody = articleBody;
+
     }
 
 
@@ -50,7 +48,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         switch(holder.getItemViewType()){
             case TITLE_TYPE:
                 TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
@@ -58,22 +55,17 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 break;
             default:
                 ArticleBodyViewHolder articleBodyViewHolder = (ArticleBodyViewHolder) holder;
-                String articleSection = articleBody[position - 1];
-                articleBodyViewHolder.bindArticleBody(articleSection);
+                articleBodyViewHolder.bindArticleBody(position);
         }
 
     }
 
     @Override
     public int getItemCount() {
-        int count = 0;
-        if (!TextUtils.isEmpty(title) && !TextUtils.isEmpty(author)) {
-            count++;
-        }
-        if (articleBody != null) {
-            count += articleBody.length;
-        }
-        return count;
+        if(articleBody != null){
+            return articleBody.length + 1;
+       }
+       return 0;
     }
 
     @Override
@@ -84,7 +76,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return ARTICLE_BODY_TYPE;
     }
 
-    public void setArticles(String[] articles){
+    public void setArticleData(String title, String author, String date, String[] articles){
+        this.title = title;
+        this.author = author;
+        this.date = date;
         this.articleBody = articles;
         notifyDataSetChanged();
     }
@@ -104,7 +99,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindTitle(){
             titleTextView.setText(title);
-            authorTextView.setText(author);
+            authorTextView.setText(String.format(context.getString(R.string.by_author), author));
             dateTextView.setText(date);
         }
 
@@ -119,8 +114,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             articleBodyTextView = view.findViewById(R.id.article_body_text);
         }
 
-        public void bindArticleBody(String article){
-            articleBodyTextView.setText(article);
+        public void bindArticleBody(int position){
+            String bodyPart = articleBody[position - 1];
+            String bodyPartNoReturn = bodyPart.replaceAll("\n(?!\\s)", " ");
+            articleBodyTextView.setText(bodyPartNoReturn);
         }
     }
 }
