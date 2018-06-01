@@ -49,6 +49,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ArticleListActivity.class.toString();
+    private static final String EXTRA_ID = "article selected extra id";
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -161,8 +162,14 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity2.class);
+                    long id = getItemId(vh.getAdapterPosition());
+                    intent.putExtra(EXTRA_ID, getItemId(vh.getAdapterPosition()));
+                    Log.d("uffa", "sto cliccando id è: " + id);
+                    //startActivity(new Intent(Intent.ACTION_VIEW,
+                     //       ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    startActivity(intent);
+
                 }
             });
             return vh;
@@ -174,7 +181,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                 return dateFormat.parse(date);
             } catch (ParseException ex) {
                 Log.e(TAG, ex.getMessage());
-                Log.i(TAG, "passing today's date");
+                Log.i(TAG, "passing today's dateTextView");
                 return new Date();
             }
         }

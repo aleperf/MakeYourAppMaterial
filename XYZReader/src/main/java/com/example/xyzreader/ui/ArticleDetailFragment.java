@@ -92,6 +92,7 @@ public class ArticleDetailFragment extends Fragment implements
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
+            Log.d("uffa", "sono in onCreate del fragment e mItemId = " + mItemId);
         }
 
         mIsCard = getResources().getBoolean(R.bool.detail_is_card);
@@ -195,7 +196,7 @@ public class ArticleDetailFragment extends Fragment implements
             return dateFormat.parse(date);
         } catch (ParseException ex) {
             Log.e(TAG, ex.getMessage());
-            Log.i(TAG, "passing today's date");
+            Log.i(TAG, "passing today's dateTextView");
             return new Date();
         }
     }
@@ -230,7 +231,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
 
             } else {
-                // If date is before 1902, just show the string
+                // If dateTextView is before 1902, just show the string
                 bylineView.setText(Html.fromHtml(
                         outputFormat.format(publishedDate) + " by <font color='#ffffff'>"
                         + mCursor.getString(ArticleLoader.Query.AUTHOR)
