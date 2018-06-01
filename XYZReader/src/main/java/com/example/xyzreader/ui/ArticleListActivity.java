@@ -164,10 +164,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                 public void onClick(View view) {
                     Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity2.class);
                     long id = getItemId(vh.getAdapterPosition());
-                    intent.putExtra(EXTRA_ID, getItemId(vh.getAdapterPosition()));
-                    Log.d("uffa", "sto cliccando id è: " + id);
-                    //startActivity(new Intent(Intent.ACTION_VIEW,
-                     //       ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    intent.putExtra(EXTRA_ID, id);
                     startActivity(intent);
 
                 }
