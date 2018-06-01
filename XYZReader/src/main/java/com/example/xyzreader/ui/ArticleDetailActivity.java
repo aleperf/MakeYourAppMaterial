@@ -1,9 +1,7 @@
 package com.example.xyzreader.ui;
 
-import android.annotation.TargetApi;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,19 +11,15 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.ImageView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.data.ItemsContract;
 import com.squareup.picasso.Picasso;
 
-public class ArticleDetailActivity2 extends AppCompatActivity
+public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private Cursor cursor;
@@ -36,7 +30,7 @@ public class ArticleDetailActivity2 extends AppCompatActivity
     private static final String EXTRA_ID = "article selected extra id";
 
     private ViewPager viewPager;
-    private ArticleDetailActivity2.MyPagerAdapter pagerAdapter;
+    private ArticleDetailActivity.MyPagerAdapter pagerAdapter;
 
 
     @Override
@@ -47,7 +41,7 @@ public class ArticleDetailActivity2 extends AppCompatActivity
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
-        setContentView(R.layout.activity_article_detail_2);
+        setContentView(R.layout.activity_article_detail);
         toolbar = findViewById(R.id.toolbar_detail);
         articleImage = findViewById(R.id.article_detail_photo);
         setSupportActionBar(toolbar);
@@ -55,7 +49,7 @@ public class ArticleDetailActivity2 extends AppCompatActivity
 
         getSupportLoaderManager().initLoader(0, null, this);
 
-        pagerAdapter = new ArticleDetailActivity2.MyPagerAdapter(getSupportFragmentManager());
+        pagerAdapter = new ArticleDetailActivity.MyPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
 
@@ -139,7 +133,7 @@ public class ArticleDetailActivity2 extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             cursor.moveToPosition(position);
-            return ArticleDetailFragment2.newInstance(cursor.getLong(ArticleLoader.Query._ID));
+            return ArticleDetailFragment.newInstance(cursor.getLong(ArticleLoader.Query._ID));
         }
 
         @Override

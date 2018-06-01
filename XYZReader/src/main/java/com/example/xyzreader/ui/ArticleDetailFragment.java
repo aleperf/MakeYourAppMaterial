@@ -1,33 +1,19 @@
 package com.example.xyzreader.ui;
 
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 
@@ -36,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ArticleDetailFragment2 extends Fragment implements
+public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "ArticleDetailFragment";
 
@@ -59,13 +45,13 @@ public class ArticleDetailFragment2 extends Fragment implements
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArticleDetailFragment2() {
+    public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragment2 newInstance(long itemId) {
+    public static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
-        ArticleDetailFragment2 fragment = new ArticleDetailFragment2();
+        ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -96,7 +82,7 @@ public class ArticleDetailFragment2 extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_article_detail_2, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
         recyclerView = mRootView.findViewById(R.id.article_detail_rv);
         articleAdapter = new ArticleAdapter(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());

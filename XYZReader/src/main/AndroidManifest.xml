@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".ui.ArticleDetailActivity2"
+            android:name=".ui.ArticleDetailActivity"
             android:parentActivityName=".ui.ArticleListActivity"
             android:theme="@style/DetailAppTheme">
             <meta-data

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.app.LoaderManager;
 import android.database.Cursor;
@@ -19,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +27,6 @@ import android.widget.TextView;
 
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
 import com.squareup.picasso.Picasso;
 
@@ -162,7 +159,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity2.class);
+                    Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
                     long id = getItemId(vh.getAdapterPosition());
                     intent.putExtra(EXTRA_ID, id);
                     startActivity(intent);
