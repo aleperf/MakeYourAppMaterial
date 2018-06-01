@@ -46,6 +46,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         articleImage = findViewById(R.id.article_detail_photo);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         getSupportLoaderManager().initLoader(0, null, this);
 
