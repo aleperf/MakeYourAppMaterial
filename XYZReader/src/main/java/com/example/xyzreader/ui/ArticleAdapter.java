@@ -10,18 +10,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import android.support.constraint.ConstraintLayout;
+
 import com.example.xyzreader.R;
+
+import android.graphics.drawable.Drawable;
+import android.support.v7.graphics.Palette;
 
 public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TITLE_TYPE = 1;
     private static final int ARTICLE_BODY_TYPE = 2;
+    private static final int PALETTE_IMAGE_SIDE = 200;
 
     Context context;
     String title;
     String author;
     String date;
     String[] articleBody;
+    String photoUrl;
 
     public ArticleAdapter(Context context) {
         this.context = context;
@@ -48,7 +57,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        switch(holder.getItemViewType()){
+        switch (holder.getItemViewType()) {
             case TITLE_TYPE:
                 TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
                 titleViewHolder.bindTitle();
@@ -62,10 +71,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        if(articleBody != null){
+        if (articleBody != null) {
             return articleBody.length + 1;
-       }
-       return 0;
+        }
+        return 0;
     }
 
     @Override
@@ -76,45 +85,84 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return ARTICLE_BODY_TYPE;
     }
 
-    public void setArticleData(String title, String author, String date, String[] articles){
+    public void setArticleData(String title, String author, String date, String[] articles, String photoUrl) {
         this.title = title;
         this.author = author;
         this.date = date;
         this.articleBody = articles;
+        this.photoUrl = photoUrl;
         notifyDataSetChanged();
     }
 
-    class TitleViewHolder extends RecyclerView.ViewHolder{
+    class TitleViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleTextView;
         TextView authorTextView;
         TextView dateTextView;
+        ConstraintLayout constraintLayout;
 
-        public TitleViewHolder(View view){
+
+        public TitleViewHolder(View view) {
             super(view);
             titleTextView = view.findViewById(R.id.detail_title);
             authorTextView = view.findViewById(R.id.detail_author);
             dateTextView = view.findViewById(R.id.detail_date);
+            constraintLayout = view.findViewById(R.id.detail_data_cl);
         }
 
-        public void bindTitle(){
+
+        public void bindTitle() {
             titleTextView.setText(title);
             authorTextView.setText(String.format(context.getString(R.string.by_author), author));
             dateTextView.setText(date);
+            Picasso.get().load(photoUrl).resize(PALETTE_IMAGE_SIDE, PALETTE_IMAGE_SIDE)
+                    .error(R.drawable.books_placeholder_coffee).into(new com.squareup.picasso.Target() {
+                @Override
+                public void onBitmapLoaded(android.graphics.Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                    Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            Palette.Swatch colorSwatch = palette.getDarkVibrantSwatch();
+                            if (colorSwatch != null) {
+                                constraintLayout.setBackgroundColor(colorSwatch.getRgb());
+                            } else {
+                                colorSwatch = palette.getDarkMutedSwatch();
+                                if (colorSwatch != null) {
+                                    constraintLayout.setBackgroundColor(colorSwatch.getRgb());
+                                }
+                            }
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                }
+
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+
+            });
         }
 
     }
 
-    class ArticleBodyViewHolder extends RecyclerView.ViewHolder{
+    class ArticleBodyViewHolder extends RecyclerView.ViewHolder {
 
         TextView articleBodyTextView;
 
-        public ArticleBodyViewHolder(View view){
+        public ArticleBodyViewHolder(View view) {
             super(view);
             articleBodyTextView = view.findViewById(R.id.article_body_text);
         }
 
-        public void bindArticleBody(int position){
+        public void bindArticleBody(int position) {
             String bodyPart = articleBody[position - 1];
             String bodyPartNoReturn = bodyPart.replaceAll("\n(?!\\s)", " ");
             articleBodyTextView.setText(bodyPartNoReturn);

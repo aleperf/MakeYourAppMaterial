@@ -46,17 +46,20 @@
     </style>
 
     <style name="ArticleDetailDate">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/detail_date_color</item>
     </style>
     <style name="ArticleDetailAuthor">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/title_detail_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="AppTheme.Detail">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+   <style name="ArticleBody">
+       <item name="android:textSize">16sp</item>
+       <item name="android:paddingTop">@dimen/article_body_top_padding</item>
+       <item name="android:paddingStart">@dimen/article_body_lateral_padding</item>
+       <item name="android:paddingEnd">@dimen/article_body_lateral_padding</item>
+   </style>
 
 </resources>

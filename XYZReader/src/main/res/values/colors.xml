@@ -16,13 +16,12 @@
 -->
 
 <resources>
-    <color name="photo_placeholder">#ccc</color>
+
     <color name="colorPrimary">#F4511E</color>
     <color name="colorPrimaryDark">#D84315</color>
     <color name="colorAccent">#0091EA</color>
     <color name="article_card_view_text">#212121</color>
     <color name="article_card_view_sub">#424242</color>
-    <color name="ltgray">#ffe0e0e0</color>
     <color name="list_item_placeholder_color">#8aa8c6</color>
     <color name="title_detail_default_background">#455A64</color>
     <color name="title_detail_text_color">#FFFFFF</color>

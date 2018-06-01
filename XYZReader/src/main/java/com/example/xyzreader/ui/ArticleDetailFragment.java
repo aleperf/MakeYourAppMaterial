@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
 public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "ArticleDetailFragment";
@@ -136,7 +137,7 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public void onLoaderReset(@NonNull android.support.v4.content.Loader<Cursor> cursorLoader) {
         mCursor = null;
-        articleAdapter.setArticleData(null, null, null, null);
+        articleAdapter.setArticleData(null, null, null, null, null);
     }
 
     private void loadAdapter() {
@@ -145,6 +146,7 @@ public class ArticleDetailFragment extends Fragment implements
             String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
             Date publishedDate = parsePublishedDate();
             String dateToDisplay;
+            String photoUrl = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
                 dateToDisplay = DateUtils.getRelativeTimeSpanString(
                         publishedDate.getTime(),
@@ -162,10 +164,13 @@ public class ArticleDetailFragment extends Fragment implements
                 articleBody = new String[0];
             }
 
-            articleAdapter.setArticleData(title, author, dateToDisplay, articleBody);
+            articleAdapter.setArticleData(title, author, dateToDisplay, articleBody, photoUrl);
             articleAdapter.notifyDataSetChanged();
+
         }
     }
+
+
 
 
 }
