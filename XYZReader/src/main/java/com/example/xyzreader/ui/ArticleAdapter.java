@@ -116,7 +116,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindArticleBody(int position){
             String bodyPart = articleBody[position - 1];
-            String bodyPartNoReturn = bodyPart.replaceAll("\n(?!\\s)", " ");
+            String bodyPartNoReturn = bodyPart.replaceAll("\n(^\\s)", " ");
             articleBodyTextView.setText(bodyPartNoReturn);
         }
     }

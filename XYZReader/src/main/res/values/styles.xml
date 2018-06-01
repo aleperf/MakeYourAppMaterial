@@ -22,9 +22,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-
     </style>
 
+    <style name="DetailAppTheme" parent ="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
     <style name="ArticleTitle">
         <item name="android:textSize">@dimen/article_title_text_size</item>
         <item name="android:textColor">@color/article_card_view_text</item>
