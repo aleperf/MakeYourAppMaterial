@@ -1,8 +1,10 @@
 package com.example.xyzreader.ui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -28,10 +31,13 @@ public class ArticleDetailActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ImageView articleImage;
     private long mSelectedItemId;
+    private static String title;
+    private static String author;
     private static final String EXTRA_ID = "article selected extra id";
 
     private ViewPager viewPager;
     private ArticleDetailActivity.MyPagerAdapter pagerAdapter;
+    //private FloatingActionButton fab;
 
 
     @Override
@@ -44,6 +50,21 @@ public class ArticleDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_article_detail);
         toolbar = findViewById(R.id.toolbar_detail);
         articleImage = findViewById(R.id.article_detail_photo);
+        Log.d("uffa","ho creato la detail activity");
+//        fab = findViewById(R.id.fab_share);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(cursor != null && author != null && title != null){
+//                   Intent intent = new Intent(Intent.ACTION_SEND);
+//                   intent.setType("text/plain");
+//                   intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_article));
+//                   String message = String.format(getString(R.string.share_message), title, author);
+//                   intent.putExtra(Intent.EXTRA_TEXT, message);
+//                   startActivity(Intent.createChooser(intent, getString(R.string.share_title)));
+//                }
+//            }
+//        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -53,8 +74,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         pagerAdapter = new ArticleDetailActivity.MyPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-
-        viewPager.setPageMarginDrawable(new ColorDrawable(0x22000000));
 
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 

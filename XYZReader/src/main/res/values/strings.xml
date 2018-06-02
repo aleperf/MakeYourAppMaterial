@@ -10,5 +10,8 @@
     <string name="intro_cards_content_desc">click to read the related article</string>
     <string name="logo_content_desc">x y z reader</string>
     <string name="decorative_image_no_content">@null</string>
+    <string name="share_article">Share an Article</string>
+    <string name="share_message">I\'m reading %s by %s on XYZ reader.</string>
+    <string name="share_title">Share an XYZ reader article</string>
 
 </resources>

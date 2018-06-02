@@ -159,6 +159,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d("uffa", "sono nell'adapter e sto cliccando");
                     Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
                     long id = getItemId(vh.getAdapterPosition());
                     intent.putExtra(EXTRA_ID, id);
