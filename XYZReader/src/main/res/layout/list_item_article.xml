@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="4dp">
+    android:layout_margin="@dimen/card_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/list_item_constraint_layout"
@@ -28,11 +28,10 @@
             style="@style/ArticleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="8dp"
-            android:text="Ebooks, Neither E, Nor Books"
+            android:layout_marginEnd="@dimen/card_lateral_margin"
+            android:layout_marginStart="@dimen/card_lateral_margin"
+            android:layout_marginTop="@dimen/card_top_margin"
+            android:padding="@dimen/card_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
@@ -42,10 +41,9 @@
             style="@style/ArticleSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="4dp"
-            android:text="12 feb 2004"
+            android:layout_marginStart="@dimen/card_lateral_margin"
+            android:layout_marginTop="@dimen/card_top_margin"
+            android:paddingBottom="@dimen/date_padding_bottom"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/article_title" />
 
@@ -54,8 +52,7 @@
             style="@style/ArticleSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:text="TextView"
+            android:paddingBottom="@dimen/card_author_padding_bottom"
             app:layout_constraintStart_toStartOf="@+id/article_date"
             app:layout_constraintTop_toBottomOf="@+id/article_date" />
     </android.support.constraint.ConstraintLayout>

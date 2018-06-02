@@ -13,6 +13,7 @@
     <string name="share_article">Share an Article</string>
     <string name="share_message">I\'m reading %s by %s on XYZ reader.</string>
     <string name="share_title">Share an XYZ reader article</string>
+    <string name="empty_view_message">No articles to display. Check for a better connection and try to refresh the articles</string>
 
 
 </resources>

@@ -52,6 +52,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     private static final String EXTRA_ID = "article selected extra id";
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView emptyView;
     private RecyclerView recyclerView;
     private boolean isRefreshing = false;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
@@ -68,6 +69,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_article_list);
 
         toolbar = findViewById(R.id.toolbar);
+        emptyView = findViewById(R.id.empty_view);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
@@ -83,8 +85,8 @@ public class ArticleListActivity extends AppCompatActivity implements
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
-                    isRefreshing = false;
                     swipeRefreshLayout.setRefreshing(false);
+
                 }
             }
         };
@@ -138,6 +140,11 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+        if(cursor.getCount() > 0){
+            emptyView.setVisibility(View.GONE);
+        } else {
+            emptyView.setVisibility(View.VISIBLE);
+        }
         Adapter adapter = new Adapter(cursor);
         adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);

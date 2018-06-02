@@ -21,11 +21,10 @@
         android:id="@+id/detail_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="12 Feb 2004"
+        android:layout_marginStart="@dimen/article_title_margin_start"
+        android:layout_marginTop="@dimen/article_title_margin"
         style="@style/ArticleDetailDate"
-        android:paddingBottom="16dp"
+        android:paddingBottom="@dimen/article_title_padding_bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_title" />
 
@@ -33,8 +32,7 @@
         android:id="@+id/detail_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="by Cory Doctorow"
+        android:layout_marginStart="@dimen/article_title_margin"
         style="@style/ArticleDetailAuthor"
         app:layout_constraintStart_toEndOf="@+id/detail_date"
         app:layout_constraintTop_toTopOf="@+id/detail_date" />
