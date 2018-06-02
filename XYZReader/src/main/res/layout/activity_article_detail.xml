@@ -14,13 +14,21 @@
         app:titleEnabled="false"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         >
-        <RelativeLayout
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
+
             <ImageView
                 android:id="@+id/article_detail_photo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/toolbar_detail_height"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:layout_collapseMode="pin"
+                android:elevation="@dimen/app_bar_elevation"
                 android:src="@drawable/books_placeholder_coffee"
                 android:scaleType="centerCrop"/>
 
@@ -28,8 +36,11 @@
                 android:id="@+id/toolbar_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:elevation="@dimen/app_bar_elevation"
+                app:layout_collapseMode="parallax"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        </RelativeLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

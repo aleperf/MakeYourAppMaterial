@@ -73,7 +73,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             if (getIntent() != null) {
                 startId = getIntent().getLongExtra(EXTRA_ID, 0);
-               // startId = ItemsContract.Items.getItemId(getIntent().getData());
                 mSelectedItemId = startId;
             }
         }
@@ -93,15 +92,12 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         // Select the start ID
         if (startId > 0) {
-            this.cursor.moveToFirst();
-            // TODO: optimize
-            while (!this.cursor.isAfterLast()) {
+            while (cursor.moveToNext()) {
                 if (this.cursor.getLong(ArticleLoader.Query._ID) == startId) {
                     final int position = this.cursor.getPosition();
                     viewPager.setCurrentItem(position, false);
                     break;
                 }
-                this.cursor.moveToNext();
             }
             startId = 0;
         }
