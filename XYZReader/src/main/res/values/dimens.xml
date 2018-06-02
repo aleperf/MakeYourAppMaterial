@@ -11,10 +11,22 @@
     <dimen name="article_body_lateral_padding">16dp</dimen>
     <dimen name="article_body_top_padding">4dp</dimen>
     <dimen name="detail_activity_padding_bottom">16dp</dimen>
+    <dimen name="logo_margin_bottom">16dp</dimen>
+
+    <dimen name="article_intro_padding_bottom">24dp</dimen>
+    <dimen name="article_detail_padding_bottom">24dp</dimen>
+    <dimen name="article_title_padding">16dp</dimen>
+
+    <dimen name="list_side_margin">16dp</dimen>
 
     <!--Article Item CardView dimens -->
     <dimen name="article_title_text_size">16sp</dimen>
     <dimen name="article_subtitle_text_size">14sp</dimen>
+    <!-- fonts -->
+    <dimen name="article_detail_title">24sp</dimen>
+    <dimen name="article_detail_date">16sp</dimen>
+    <dimen name="article_detail_author">16sp</dimen>
+    <dimen name="article_body_text_size">14sp</dimen>
 
 
 

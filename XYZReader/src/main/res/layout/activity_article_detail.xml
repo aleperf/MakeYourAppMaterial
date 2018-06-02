@@ -26,6 +26,7 @@
                 android:id="@+id/article_detail_photo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_detail_height"
+                android:contentDescription="@string/decorative_image_no_content"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_collapseMode="pin"
                 android:elevation="@dimen/app_bar_elevation"
@@ -52,8 +53,8 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_layout_margin"
         android:src="@drawable/ic_share"
         app:layout_anchor="@id/pager"
         app:layout_anchorGravity="bottom|right|end"/>

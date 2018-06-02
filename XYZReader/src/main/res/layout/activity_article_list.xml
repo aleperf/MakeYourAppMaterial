@@ -21,9 +21,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/logo_content_desc"
                 android:src="@drawable/logo"
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="@dimen/logo_margin_bottom"/>
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -42,6 +43,6 @@
             android:scrollbarStyle="outsideOverlay"
             android:paddingLeft="@dimen/list_side_margin"
             android:paddingRight="@dimen/list_side_margin"
-            android:paddingBottom="28dp" />
+            android:paddingBottom="@dimen/article_intro_padding_bottom" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>
