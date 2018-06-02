@@ -37,6 +37,7 @@
                 android:id="@+id/toolbar_detail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="@dimen/toolbar_detail_padding_top"
                 android:elevation="@dimen/app_bar_elevation"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>

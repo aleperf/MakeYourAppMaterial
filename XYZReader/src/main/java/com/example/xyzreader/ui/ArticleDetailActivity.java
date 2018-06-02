@@ -14,6 +14,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -30,14 +33,13 @@ public class ArticleDetailActivity extends AppCompatActivity
     private long startId;
     private Toolbar toolbar;
     private ImageView articleImage;
-    private long mSelectedItemId;
-    private static String title;
-    private static String author;
+    private static String titleFab;
+    private static String authorFab;
     private static final String EXTRA_ID = "article selected extra id";
 
     private ViewPager viewPager;
     private ArticleDetailActivity.MyPagerAdapter pagerAdapter;
-    //private FloatingActionButton fab;
+    private FloatingActionButton fab;
 
 
     @Override
@@ -50,21 +52,13 @@ public class ArticleDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_article_detail);
         toolbar = findViewById(R.id.toolbar_detail);
         articleImage = findViewById(R.id.article_detail_photo);
-        Log.d("uffa","ho creato la detail activity");
-//        fab = findViewById(R.id.fab_share);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(cursor != null && author != null && title != null){
-//                   Intent intent = new Intent(Intent.ACTION_SEND);
-//                   intent.setType("text/plain");
-//                   intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_article));
-//                   String message = String.format(getString(R.string.share_message), title, author);
-//                   intent.putExtra(Intent.EXTRA_TEXT, message);
-//                   startActivity(Intent.createChooser(intent, getString(R.string.share_title)));
-//                }
-//            }
-//        });
+        fab = findViewById(R.id.fab_share);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareArticle();
+            }
+        });
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -83,8 +77,6 @@ public class ArticleDetailActivity extends AppCompatActivity
                 if (cursor != null) {
                     cursor.moveToPosition(position);
                 }
-                mSelectedItemId = cursor.getLong(ArticleLoader.Query._ID);
-
             }
         });
 
@@ -92,10 +84,37 @@ public class ArticleDetailActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             if (getIntent() != null) {
                 startId = getIntent().getLongExtra(EXTRA_ID, 0);
-                mSelectedItemId = startId;
-            }
+                }
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.detail_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.share){
+            shareArticle();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareArticle(){
+        if(cursor != null && authorFab != null && titleFab != null){
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_article));
+            String message = String.format(getString(R.string.share_message), titleFab, authorFab);
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            startActivity(Intent.createChooser(intent, getString(R.string.share_title)));
+        }
+    }
+
 
 
     @Override
@@ -140,6 +159,8 @@ public class ArticleDetailActivity extends AppCompatActivity
             super.setPrimaryItem(container, position, object);
             cursor.moveToPosition(position);
             String photoUrl = cursor.getString(ArticleLoader.Query.PHOTO_URL);
+            titleFab = cursor.getString(ArticleLoader.Query.TITLE);
+            authorFab = cursor.getString(ArticleLoader.Query.AUTHOR);
             Picasso.get().load(photoUrl).placeholder(R.drawable.books_placeholder_coffee)
                     .error(R.drawable.books_placeholder_coffee).into(articleImage);
 

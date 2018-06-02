@@ -20,6 +20,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -110,8 +113,21 @@ public class ArticleListActivity extends AppCompatActivity implements
         unregisterReceiver(mRefreshingReceiver);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.refresh){
+            refresh();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @NonNull
     @Override
@@ -159,7 +175,6 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("uffa", "sono nell'adapter e sto cliccando");
                     Intent intent = new Intent(ArticleListActivity.this, ArticleDetailActivity.class);
                     long id = getItemId(vh.getAdapterPosition());
                     intent.putExtra(EXTRA_ID, id);

@@ -7,6 +7,7 @@
     <dimen name="toolbar_main">120dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
     <dimen name="app_bar_elevation">4dp</dimen>
+    <dimen name="toolbar_detail_padding_top">24dp</dimen>
 
     <dimen name="article_body_lateral_padding">16dp</dimen>
     <dimen name="article_body_top_padding">4dp</dimen>
@@ -27,7 +28,5 @@
     <dimen name="article_detail_date">16sp</dimen>
     <dimen name="article_detail_author">16sp</dimen>
     <dimen name="article_body_text_size">14sp</dimen>
-
-
 
 </resources>
