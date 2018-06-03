@@ -163,6 +163,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void bindArticleBody(int position) {
             String bodyPart = articleBody[position - 1];
+            // remove unnecessary newlines, maintains newlines if followed by space as in verses in some articles
             String bodyPartNoReturn = bodyPart.replaceAll("\n(?!\\s)", " ");
             articleBodyTextView.setText(bodyPartNoReturn);
         }

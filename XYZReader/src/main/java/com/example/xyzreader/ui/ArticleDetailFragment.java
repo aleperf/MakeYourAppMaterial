@@ -151,6 +151,7 @@ public class ArticleDetailFragment extends Fragment implements
             String article = cursor.getString(ArticleLoader.Query.BODY);
             String[] articleBody;
             if (article != null) {
+                // split text in paragraphs
                 articleBody = article.split("\\r\\n\\r\\n");
 
             } else {
