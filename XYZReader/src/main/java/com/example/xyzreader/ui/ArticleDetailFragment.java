@@ -31,9 +31,10 @@ public class ArticleDetailFragment extends Fragment implements
 
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
-    private Cursor mCursor;
-    private long mItemId;
-    private View mRootView;
+    private Cursor cursor;
+    private long itemId;
+    private View rootView;
+
 
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
@@ -41,6 +42,7 @@ public class ArticleDetailFragment extends Fragment implements
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,7 +64,7 @@ public class ArticleDetailFragment extends Fragment implements
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            mItemId = getArguments().getLong(ARG_ITEM_ID);
+            itemId = getArguments().getLong(ARG_ITEM_ID);
         }
         setHasOptionsMenu(true);
     }
@@ -83,23 +85,19 @@ public class ArticleDetailFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
-        recyclerView = mRootView.findViewById(R.id.article_detail_rv);
+        rootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
+        recyclerView = rootView.findViewById(R.id.article_detail_rv);
         articleAdapter = new ArticleAdapter(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(articleAdapter);
-
-        //TODO : the fab button is inside the activity, so implement an interface to call the activity
-        //and share data about the article (but not the all article).
-        return mRootView;
+        return rootView;
     }
-
 
 
     private Date parsePublishedDate() {
         try {
-            String date = mCursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
+            String date = cursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
             return dateFormat.parse(date);
         } catch (ParseException ex) {
             Log.e(TAG, ex.getMessage());
@@ -111,7 +109,7 @@ public class ArticleDetailFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return ArticleLoader.newInstanceForItemId(getActivity(), mItemId);
+        return ArticleLoader.newInstanceForItemId(getActivity(), itemId);
     }
 
     @Override
@@ -123,11 +121,11 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        mCursor = cursor;
-        if (mCursor != null && !mCursor.moveToFirst()) {
+        this.cursor = cursor;
+        if (this.cursor != null && !this.cursor.moveToFirst()) {
             Log.e(TAG, "Error reading item detail cursor");
-            mCursor.close();
-            mCursor = null;
+            this.cursor.close();
+            this.cursor = null;
         }
 
         loadAdapter();
@@ -136,26 +134,26 @@ public class ArticleDetailFragment extends Fragment implements
 
     @Override
     public void onLoaderReset(@NonNull android.support.v4.content.Loader<Cursor> cursorLoader) {
-        mCursor = null;
+        cursor = null;
         articleAdapter.setArticleData(null, null, null, null, null);
     }
 
     private void loadAdapter() {
-        if(mCursor != null) {
-            String title = mCursor.getString(ArticleLoader.Query.TITLE);
-            String author = mCursor.getString(ArticleLoader.Query.AUTHOR);
+        if (cursor != null) {
+            String title = cursor.getString(ArticleLoader.Query.TITLE);
+            String author = cursor.getString(ArticleLoader.Query.AUTHOR);
             Date publishedDate = parsePublishedDate();
             String dateToDisplay;
-            String photoUrl = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
+            String photoUrl = cursor.getString(ArticleLoader.Query.PHOTO_URL);
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
                 dateToDisplay = DateUtils.getRelativeTimeSpanString(
                         publishedDate.getTime(),
                         System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                         DateUtils.FORMAT_ABBREV_ALL).toString();
             } else {
-               dateToDisplay = outputFormat.format(publishedDate);
+                dateToDisplay = outputFormat.format(publishedDate);
             }
-            String article = mCursor.getString(ArticleLoader.Query.BODY);
+            String article = cursor.getString(ArticleLoader.Query.BODY);
             String[] articleBody;
             if (article != null) {
                 articleBody = article.split("\\r\\n\\r\\n");
@@ -169,8 +167,6 @@ public class ArticleDetailFragment extends Fragment implements
 
         }
     }
-
-
 
 
 }

@@ -3,8 +3,6 @@ package com.example.xyzreader.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +23,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final int ARTICLE_BODY_TYPE = 2;
     private static final int PALETTE_IMAGE_SIDE = 200;
 
-    Context context;
-    String title;
-    String author;
-    String date;
-    String[] articleBody;
-    String photoUrl;
+    private Context context;
+    private String title;
+    private String author;
+    private String date;
+    private String[] articleBody;
+    private String photoUrl;
 
     public ArticleAdapter(Context context) {
         this.context = context;

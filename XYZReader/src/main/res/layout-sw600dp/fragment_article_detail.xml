@@ -5,6 +5,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     app:behavior_overlapTop="64dp"
     app:cardCornerRadius="4dp"
+    android:elevation="@dimen/card_rv_elevation"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <android.support.v7.widget.RecyclerView

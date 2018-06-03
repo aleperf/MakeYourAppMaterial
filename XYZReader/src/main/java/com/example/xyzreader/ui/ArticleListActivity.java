@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
@@ -124,7 +126,7 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.refresh){
+        if (item.getItemId() == R.id.refresh) {
             refresh();
             return true;
         }
@@ -140,10 +142,14 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        if(cursor.getCount() > 0){
+        if (cursor.getCount() > 0) {
             emptyView.setVisibility(View.GONE);
         } else {
-            emptyView.setVisibility(View.VISIBLE);
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+            NetworkInfo ni = cm.getActiveNetworkInfo();
+            if (ni == null || !ni.isConnected()) {
+                emptyView.setVisibility(View.VISIBLE);
+            }
         }
         Adapter adapter = new Adapter(cursor);
         adapter.setHasStableIds(true);
@@ -226,7 +232,7 @@ public class ArticleListActivity extends AppCompatActivity implements
             float aspectRatio = cursor.getFloat(ArticleLoader.Query.ASPECT_RATIO);
 
             //aspect ratio as proportion width:height
-            String ratio = String.format(Locale.ENGLISH,"%.2f:%d", aspectRatio, DEFAULT_HEIGHT);
+            String ratio = String.format(Locale.ENGLISH, "%.2f:%d", aspectRatio, DEFAULT_HEIGHT);
             constraintSet.clone(holder.constraintLayout);
             constraintSet.setDimensionRatio(holder.thumbnailView.getId(), ratio);
             constraintSet.applyTo(holder.constraintLayout);
