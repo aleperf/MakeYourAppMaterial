@@ -117,7 +117,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .error(R.drawable.books_placeholder_coffee).into(new com.squareup.picasso.Target() {
                 @Override
                 public void onBitmapLoaded(android.graphics.Bitmap bitmap, Picasso.LoadedFrom from) {
-
+                    //set the background color of the title to one of the main colors of the image
+                    // if a swatch can be created.
                     Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(Palette palette) {

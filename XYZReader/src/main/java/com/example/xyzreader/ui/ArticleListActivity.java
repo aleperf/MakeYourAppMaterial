@@ -57,7 +57,7 @@ public class ArticleListActivity extends AppCompatActivity implements
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyView;
     private RecyclerView recyclerView;
-    private int rv_postion;
+    private int rv_position;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
@@ -97,7 +97,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         if (savedInstanceState == null) {
             refresh();
         } else {
-            rv_postion = savedInstanceState.getInt(RV_POSITION);
+            rv_position = savedInstanceState.getInt(RV_POSITION);
         }
     }
 
@@ -160,7 +160,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sglm);
-        recyclerView.scrollToPosition(rv_postion);
+        recyclerView.scrollToPosition(rv_position);
     }
 
     @Override
