@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.Loader;
@@ -53,15 +52,18 @@ public class ArticleListActivity extends AppCompatActivity implements
 
     private static final String TAG = ArticleListActivity.class.toString();
     private static final String EXTRA_ID = "article selected extra id";
+    private static final String RV_POSITION ="rv position";
     private Toolbar toolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView emptyView;
     private RecyclerView recyclerView;
+    private int rv_postion;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
+
     private BroadcastReceiver mRefreshingReceiver;
 
     @Override
@@ -94,6 +96,8 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         if (savedInstanceState == null) {
             refresh();
+        } else {
+            rv_postion = savedInstanceState.getInt(RV_POSITION);
         }
     }
 
@@ -153,8 +157,10 @@ public class ArticleListActivity extends AppCompatActivity implements
         adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);
         int columnCount = getResources().getInteger(R.integer.list_column_count);
-        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
+        StaggeredGridLayoutManager sglm =
+                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sglm);
+        recyclerView.scrollToPosition(rv_postion);
     }
 
     @Override
@@ -261,4 +267,16 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (recyclerView != null) {
+            StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
+            if (manager != null && recyclerView.getAdapter() != null) {
+                int[] positions = new int[manager.getSpanCount()];
+                manager.findFirstCompletelyVisibleItemPositions(positions);
+                outState.putInt(RV_POSITION,positions[0]);
+            }
+        }
+    }
 }
